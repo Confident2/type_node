@@ -1,0 +1,2 @@
+ 2024-01-17	09:56:44	dabd4414-3adb-4901-b3fe-f9e896e6949c	Log event emitted
+ 2024-01-17	09:56:57	0b298050-e761-4d6c-8cb2-13559349e7fc	Log event emitted
