@@ -6,7 +6,7 @@ import path from "path";
 
 const generatedUuid = uuid();
 
-const logEvents = async (message: string) => {
+const logEvents = async (message: string, fileName: string) => {
   const formattedDate = `${format(new Date(), "yyyy-MM-dd\tHH:mm:ss")}`;
   const logItem = ` ${formattedDate}\t${generatedUuid}\t${message}\n`;
 
@@ -16,7 +16,7 @@ const logEvents = async (message: string) => {
       await fsPromises.mkdir(path.join(__dirname, "logs"));
     }
     await fsPromises.appendFile(
-      path.join(__dirname, "logs", "eventLog.txt"),
+      path.join(__dirname, "logs", fileName),
       logItem
     );
   } catch (error) {
