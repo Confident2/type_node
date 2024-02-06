@@ -1,20 +1,47 @@
 import express from "express";
 import { Request, Response, NextFunction } from "express";
-import path from "path";
-import http from "http";
-import fs from "fs";
-import dotenv from "dotenv";
-import logEvents from "./logEvents";
-
-dotenv.config();
-
 const app = express();
+import path from "path";
+import cors from "cors";
+import { logger } from "./middleware/logEvents";
+import errorHandler from "./middleware/errorHandling";
 const PORT = process.env.PORT || 3500;
 
-// Serve static files
+// custom middleware logger
+app.use(logger);
+
+// Cross-Origin Resource Sharing
+
+const whitelist = [
+  "https://www.google.com",
+  "http://localhost:3500",
+  "http://127.0.0.1:5500",
+];
+const corsOptions = {
+  origin: (
+    origin: string | undefined,
+    callback: (error: Error | null, success?: boolean) => void
+  ) => {
+    if (whitelist.indexOf(origin!) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error("Not allowed by CORS"));
+    }
+  },
+  optionSuccessStatus: 200,
+};
+app.use(cors(corsOptions));
+
+app.use(express.urlencoded({ extended: false }));
+
+// built-in middleware for json
+app.use(express.json());
+
+// serve static files
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("^/$|/index(.html)?", (req, res) => {
+  //res.sendFile("./views/index.html", { root: __dirname });
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
@@ -22,7 +49,7 @@ app.get("/new-page(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "new-page.html"));
 });
 
-// Route handlers
+// route handlers
 app.get(
   "/hello(.html)?",
   (req: Request, res: Response, next: NextFunction) => {
@@ -33,7 +60,6 @@ app.get(
     res.send("hello");
   }
 );
-
 const one = (req: Request, res: Response, next: NextFunction) => {
   console.log("one");
   next();
@@ -48,115 +74,18 @@ const three = (req: Request, res: Response, next: NextFunction) => {
   console.log("three");
   res.send("finished");
 };
-
 app.get("/chain(.html)?", [one, two, three]);
 
+app.all("*", (req, res) => {
+  res.status(404);
+  if (req.accepts("html")) {
+    res.sendFile(path.join(__dirname, "views", "404.html"));
+  } else if (req.accepts("json")) {
+    res.json({ error: "404 Not Found" });
+  } else {
+    res.type("txt").send("404 Not Found");
+  }
+});
+
+app.use(errorHandler);
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
-
-const myEmitter = new http.Server();
-
-myEmitter.on("log", (msg: string, fileName: string) =>
-  logEvents(msg, fileName)
-);
-
-const serveFile = async (
-  filePath: string,
-  contentType: string,
-  response: http.ServerResponse
-) => {
-  try {
-    const rawData: string | Buffer = await fs.promises.readFile(
-      filePath,
-      !contentType.includes("image") ? "utf8" : undefined
-    );
-
-    response.writeHead(filePath.includes("404.html") ? 404 : 200, {
-      "content-Type": contentType,
-    });
-
-    if (contentType === "application/json") {
-      const data = JSON.parse(rawData.toString("utf8"));
-      response.end(JSON.stringify(data));
-    } else {
-      response.end(rawData, "binary");
-    }
-  } catch (error) {
-    if (error instanceof Error) {
-      console.log(error);
-      myEmitter.emit("log", `${error.name}\t${error.message}`, "errLog.txt");
-      response.statusCode = 500;
-      response.end();
-    } else {
-      console.error("Unexpected error type:", typeof error);
-      response.statusCode = 500;
-      response.end();
-    }
-  }
-};
-
-const server = http.createServer(
-  (req: http.IncomingMessage, res: http.ServerResponse) => {
-    console.log(req.url, req.method);
-    myEmitter.emit("log", `${req.url}\t${req.method}`, "reqLog.txt");
-
-    const extension: string = path.extname(req.url || "");
-    let contentType: string;
-    switch (extension) {
-      case ".css":
-        contentType = "text/css";
-        break;
-      case ".js":
-        contentType = "text/javascript";
-        break;
-      case ".json":
-        contentType = "application/json";
-        break;
-      case ".jpg":
-        contentType = "image/jpg";
-        break;
-      case ".png":
-        contentType = "image/png";
-        break;
-      case ".txt":
-        contentType = "text/plain";
-        break;
-      default:
-        contentType = "text/html";
-    }
-
-    let filePath: string =
-      contentType === "text/html" && (req.url || "") === "/"
-        ? path.join(__dirname, "views", "index.html")
-        : contentType === "text/html" && (req.url || "").slice(-1) === "/"
-        ? path.join(__dirname, "views", req.url || "", "index.html")
-        : contentType === "text/html"
-        ? path.join(__dirname, "views", req.url || "")
-        : path.join(__dirname, req.url || "");
-
-    if (!extension && (req.url || "").slice(-1) !== "/") filePath += ".html";
-
-    const fileExist: boolean = fs.existsSync(filePath);
-    if (fileExist) {
-      serveFile(filePath, contentType, res);
-    } else {
-      switch (path.parse(filePath).base) {
-        case "old-page.html":
-          res.writeHead(301, { location: "/new-page.html" });
-          res.end();
-          break;
-        case "www-page.html":
-          res.writeHead(301, { location: "/" });
-          res.end();
-          break;
-        default:
-          serveFile(
-            path.join(__dirname, "views", "404.html"),
-            "text/html",
-            res
-          );
-      }
-    }
-  }
-);
-
-server.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
