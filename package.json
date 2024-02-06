@@ -1,7 +1,7 @@
 {
   "name": "node",
   "version": "1.0.0",
-  "description": "tutNode",
+  "description": "express ts tutorial for Nodejs",
   "main": "server.js",
   "scripts": {
     "start": "node dist/js/server.js",
