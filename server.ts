@@ -1,15 +1,20 @@
-
 import express from "express";
 import { Request, Response, NextFunction } from "express";
-const app = express();
 import path from "path";
+import http from "http";
+import fs from "fs";
+import dotenv from "dotenv";
+import logEvents from "./logEvents";
+
+dotenv.config();
+
+const app = express();
 const PORT = process.env.PORT || 3500;
 
-// serve static files
+// Serve static files
 app.use(express.static(path.join(__dirname, "/public")));
 
 app.get("^/$|/index(.html)?", (req, res) => {
-  //res.sendFile("./views/index.html", { root: __dirname });
   res.sendFile(path.join(__dirname, "views", "index.html"));
 });
 
@@ -17,7 +22,7 @@ app.get("/new-page(.html)?", (req, res) => {
   res.sendFile(path.join(__dirname, "views", "new-page.html"));
 });
 
-// route handlers
+// Route handlers
 app.get(
   "/hello(.html)?",
   (req: Request, res: Response, next: NextFunction) => {
@@ -28,6 +33,7 @@ app.get(
     res.send("hello");
   }
 );
+
 const one = (req: Request, res: Response, next: NextFunction) => {
   console.log("one");
   next();
@@ -42,33 +48,24 @@ const three = (req: Request, res: Response, next: NextFunction) => {
   console.log("three");
   res.send("finished");
 };
+
 app.get("/chain(.html)?", [one, two, three]);
 
 app.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
-=======
-import logEvents from "./logEvents";
-import EventEmitter from "events";
-import { promises as fsPromises, existsSync } from "fs";
-import path from "path";
-import http from "http";
-import dotenv from "dotenv";
-dotenv.config();
 
-class MyEmitter extends EventEmitter {}
-const myEmitter = new MyEmitter();
+const myEmitter = new http.Server();
 
 myEmitter.on("log", (msg: string, fileName: string) =>
   logEvents(msg, fileName)
 );
-const PORT = process.env.PORT || 3500;
+
 const serveFile = async (
   filePath: string,
   contentType: string,
   response: http.ServerResponse
 ) => {
   try {
-    const emptyString = "";
-    const rawData: string | Buffer = await fsPromises.readFile(
+    const rawData: string | Buffer = await fs.promises.readFile(
       filePath,
       !contentType.includes("image") ? "utf8" : undefined
     );
@@ -90,9 +87,7 @@ const serveFile = async (
       response.statusCode = 500;
       response.end();
     } else {
-      // Handle the case when 'error' is not of type Error
       console.error("Unexpected error type:", typeof error);
-      // Additional error handling or logging if needed
       response.statusCode = 500;
       response.end();
     }
@@ -138,10 +133,9 @@ const server = http.createServer(
         ? path.join(__dirname, "views", req.url || "")
         : path.join(__dirname, req.url || "");
 
-    // makes the .html extension not required in the browser
     if (!extension && (req.url || "").slice(-1) !== "/") filePath += ".html";
 
-    const fileExist: boolean = existsSync(filePath);
+    const fileExist: boolean = fs.existsSync(filePath);
     if (fileExist) {
       serveFile(filePath, contentType, res);
     } else {
@@ -166,7 +160,3 @@ const server = http.createServer(
 );
 
 server.listen(PORT, () => console.log(`Server running on PORT ${PORT}`));
-
-// myEmitter.on("log", (msg: string) => logEvents(msg));
-// myEmitter.emit("log", "Log event emitted");
-
