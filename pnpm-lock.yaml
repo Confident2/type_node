@@ -5,9 +5,11 @@ settings:
   excludeLinksFromLockfile: false
 
 dependencies:
+
   '@types/express':
     specifier: ^4.17.21
     version: 4.17.21
+
   '@types/uuid':
     specifier: ^9.0.7
     version: 9.0.7
@@ -86,6 +88,7 @@ packages:
     resolution: {integrity: sha512-vxhUy4J8lyeyinH7Azl1pdd43GJhZH/tP2weN8TntQblOY+A0XbT8DJk1/oCPuOOyg/Ja757rG0CgHcWC8OfMA==}
     dev: false
 
+
   /@types/body-parser@1.19.5:
     resolution: {integrity: sha512-fB3Zu92ucau0iQ0JMCFQE7b/dv8Ot07NI3KaZIkIUNXq82k4eBAqUaneXfleGY9JWskeS9y+u0nXMyspcuQrCg==}
     dependencies:
@@ -134,6 +137,7 @@ packages:
     dependencies:
       undici-types: 5.26.5
 
+
   /@types/qs@6.9.11:
     resolution: {integrity: sha512-oGk0gmhnEJK4Yyk+oI7EfXsLayXatCWPHary1MtcmbAifkobT9cM9yutG/hZKIseOU0MqbIwQ/u2nn/Gb+ltuQ==}
     dev: false
@@ -156,6 +160,7 @@ packages:
       '@types/mime': 3.0.4
       '@types/node': 20.10.7
     dev: false
+
 
   /@types/uuid@9.0.7:
     resolution: {integrity: sha512-WUtIVRUZ9i5dYXefDEAI7sh9/O7jGvHg7Df/5O/gtH3Yabe5odI3UWopVR1qbPXQtvOxWu3mM4XxlYeZtMWF4g==}
