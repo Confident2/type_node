@@ -27,7 +27,7 @@ const corsOptions = {
             callback(new Error("Not allowed by CORS"));
         }
     },
-    optionSuccessStatus: 200,
+    optionsSuccessStatus: 200,
 };
 app.use((0, cors_1.default)(corsOptions));
 app.use(express_1.default.urlencoded({ extended: false }));
