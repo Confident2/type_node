@@ -22,13 +22,13 @@ const corsOptions = {
     origin: string | undefined,
     callback: (error: Error | null, success?: boolean) => void
   ) => {
-    if (whitelist.indexOf(origin!) !== -1 || !origin) {
+    if (whitelist.indexOf(origin!) !== -1) {
       callback(null, true);
     } else {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  optionSuccessStatus: 200,
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
