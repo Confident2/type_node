@@ -9,6 +9,8 @@ const path_1 = __importDefault(require("path"));
 const cors_1 = __importDefault(require("cors"));
 const logEvents_1 = require("./middleware/logEvents");
 const errorHandling_1 = __importDefault(require("./middleware/errorHandling"));
+const roots_1 = __importDefault(require("./routes/roots"));
+const subdir_1 = __importDefault(require("./routes/subdir"));
 const PORT = process.env.PORT || 3500;
 // custom middleware logger
 app.use(logEvents_1.logger);
@@ -20,9 +22,7 @@ const whitelist = [
 ];
 const corsOptions = {
     origin: (origin, callback) => {
-
         if (whitelist.indexOf(origin) !== -1 || !origin) {
-
             callback(null, true);
         }
         else {
@@ -36,14 +36,10 @@ app.use(express_1.default.urlencoded({ extended: false }));
 // built-in middleware for json
 app.use(express_1.default.json());
 // serve static files
-app.use(express_1.default.static(path_1.default.join(__dirname, "/public")));
-app.get("^/$|/index(.html)?", (req, res) => {
-    //res.sendFile("./views/index.html", { root: __dirname });
-    res.sendFile(path_1.default.join(__dirname, "views", "index.html"));
-});
-app.get("/new-page(.html)?", (req, res) => {
-    res.sendFile(path_1.default.join(__dirname, "views", "new-page.html"));
-});
+app.use("/", express_1.default.static(path_1.default.join(__dirname, "/public")));
+app.use("/subdir", express_1.default.static(path_1.default.join(__dirname, "/public")));
+app.use("/", roots_1.default);
+app.use("/subdir", subdir_1.default);
 // route handlers
 app.get("/hello(.html)?", (req, res, next) => {
     console.log("attempted");
