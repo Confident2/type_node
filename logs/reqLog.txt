@@ -20,3 +20,36 @@
  2024-02-06	23:57:19	6e07c3a8-862c-4650-a64c-8a01d678c600	GET	undefined	/css/styles.css
  2024-02-06	23:57:35	d1cbe414-e8ef-409b-99be-f66df7a961dc	GET	undefined	/mike
  2024-02-06	23:57:35	d1cbe414-e8ef-409b-99be-f66df7a961dc	GET	undefined	/css/styles.css
+ 2024-02-23	07:04:13	1a156ef5-61d1-4d5b-9bf5-e01b0a7ccb5e	GET	undefined	/
+ 2024-02-23	07:04:13	1a156ef5-61d1-4d5b-9bf5-e01b0a7ccb5e	GET	undefined	/css/styles.css
+ 2024-02-23	07:04:14	1a156ef5-61d1-4d5b-9bf5-e01b0a7ccb5e	GET	undefined	/favicon.ico
+ 2024-02-23	07:04:58	da89ca04-8a73-4ece-a828-6d7f8438fe51	GET	undefined	/
+ 2024-02-23	07:04:58	da89ca04-8a73-4ece-a828-6d7f8438fe51	GET	undefined	/css/styles.css
+ 2024-02-23	07:05:16	da89ca04-8a73-4ece-a828-6d7f8438fe51	GET	undefined	/new-page
+ 2024-02-23	07:05:16	da89ca04-8a73-4ece-a828-6d7f8438fe51	GET	undefined	/img/neom.jpg
+ 2024-02-23	07:05:16	da89ca04-8a73-4ece-a828-6d7f8438fe51	GET	undefined	/css/styles.css
+ 2024-02-26	10:33:01	5154d729-eb98-4db8-af6e-dcea4a76c8df	GET	undefined	/mike
+ 2024-02-26	10:33:02	5154d729-eb98-4db8-af6e-dcea4a76c8df	GET	undefined	/css/styles.css
+ 2024-02-26	10:33:03	5154d729-eb98-4db8-af6e-dcea4a76c8df	GET	undefined	/favicon.ico
+ 2024-02-26	10:33:53	5154d729-eb98-4db8-af6e-dcea4a76c8df	GET	undefined	/subdir/mike
+ 2024-02-26	10:33:53	5154d729-eb98-4db8-af6e-dcea4a76c8df	GET	undefined	/subdir/css/styles.css
+ 2024-02-26	10:55:07	363a21a9-c21b-489c-896d-aaa63cca3320	GET	undefined	/new-page
+ 2024-02-26	10:55:07	363a21a9-c21b-489c-896d-aaa63cca3320	GET	undefined	/css/styles.css
+ 2024-02-26	10:55:07	363a21a9-c21b-489c-896d-aaa63cca3320	GET	undefined	/img/neom.jpg
+ 2024-02-26	10:55:49	db61575a-efa3-4523-976e-27726f8f8719	GET	undefined	/new-page
+ 2024-02-26	10:55:49	db61575a-efa3-4523-976e-27726f8f8719	GET	undefined	/css/styles.css
+ 2024-02-26	10:56:40	896a73f1-6f82-4fa1-b9b7-19e006320d42	GET	undefined	/new-page
+ 2024-02-26	11:01:51	850dc9e0-2b68-40c7-9b02-29095e651640	GET	undefined	/new-page
+ 2024-02-26	11:02:02	850dc9e0-2b68-40c7-9b02-29095e651640	GET	undefined	/
+ 2024-02-26	11:02:02	850dc9e0-2b68-40c7-9b02-29095e651640	GET	undefined	/css/styles.css
+ 2024-02-26	11:02:09	850dc9e0-2b68-40c7-9b02-29095e651640	GET	undefined	/new-page
+ 2024-02-26	11:06:26	850dc9e0-2b68-40c7-9b02-29095e651640	GET	undefined	/new-page
+ 2024-02-26	11:07:14	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/new-page
+ 2024-02-26	11:07:14	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/css/styles.css
+ 2024-02-26	11:07:14	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/img/neom.jpg
+ 2024-02-26	11:07:26	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/old-page
+ 2024-02-26	11:07:26	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/new-page.html
+ 2024-02-26	11:07:27	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/css/styles.css
+ 2024-02-26	11:07:27	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/img/neom.jpg
+ 2024-02-26	11:07:53	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/index
+ 2024-02-26	11:07:53	10a9581e-2053-4987-8f67-78118795f568	GET	undefined	/css/styles.css

@@ -5,6 +5,8 @@ import path from "path";
 import cors from "cors";
 import { logger } from "./middleware/logEvents";
 import errorHandler from "./middleware/errorHandling";
+import rootRouter from "./routes/roots";
+import subRouter from "./routes/subdir";
 const PORT = process.env.PORT || 3500;
 
 // custom middleware logger
@@ -28,7 +30,7 @@ const corsOptions = {
       callback(new Error("Not allowed by CORS"));
     }
   },
-  optionSuccessStatus: 200,
+  optionsSuccessStatus: 200,
 };
 app.use(cors(corsOptions));
 
@@ -38,17 +40,11 @@ app.use(express.urlencoded({ extended: false }));
 app.use(express.json());
 
 // serve static files
-app.use(express.static(path.join(__dirname, "/public")));
+app.use("/", express.static(path.join(__dirname, "/public")));
+app.use("/subdir", express.static(path.join(__dirname, "/public")));
 
-app.get("^/$|/index(.html)?", (req, res) => {
-  //res.sendFile("./views/index.html", { root: __dirname });
-  res.sendFile(path.join(__dirname, "views", "index.html"));
-});
-
-app.get("/new-page(.html)?", (req, res) => {
-  res.sendFile(path.join(__dirname, "views", "new-page.html"));
-});
-
+app.use("/", rootRouter);
+app.use("/subdir", subRouter);
 // route handlers
 app.get(
   "/hello(.html)?",

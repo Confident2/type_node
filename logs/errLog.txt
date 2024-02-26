@@ -1,1 +1,5 @@
  2024-02-06	23:36:52	58ad0361-1a7c-4adc-b133-ac977efa7d04	Error: Not allowed by CORS
+ 2024-02-26	10:56:40	896a73f1-6f82-4fa1-b9b7-19e006320d42	Error: ENOENT: no such file or directory, stat 'C:\Users\kp\Documents\ws\type_node\views\test.html'
+ 2024-02-26	11:01:51	850dc9e0-2b68-40c7-9b02-29095e651640	Error: ENOENT: no such file or directory, stat 'C:\Users\kp\Documents\ws\type_node\views\test.html'
+ 2024-02-26	11:02:09	850dc9e0-2b68-40c7-9b02-29095e651640	Error: ENOENT: no such file or directory, stat 'C:\Users\kp\Documents\ws\type_node\views\test.html'
+ 2024-02-26	11:06:26	850dc9e0-2b68-40c7-9b02-29095e651640	Error: ENOENT: no such file or directory, stat 'C:\Users\kp\Documents\ws\type_node\views\test.html'
